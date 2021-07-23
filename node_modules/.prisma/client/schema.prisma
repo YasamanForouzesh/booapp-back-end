@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User{
+  id Int @default(autoincrement()) @id
+  FirstName String
+  LastName String
+  DateOfBirth String
+  Username String
+  Email String @unique
+  Password String
+  Book Book[]
+  FaveBook UserBookFave?
+  Vote Vote[]
+}
+
+model Book{
+  id Int @default(autoincrement()) @id
+  Name String
+  Author String
+  PicUrl String
+  Summery String
+  Comments Comments[]
+  Reader User @relation(fields: [ReaderId], references: [id])
+  ReaderId Int
+  FaveBook UserBookFave?
+}
+
+model UserBookFave{
+  id Int @id @default(autoincrement()) 
+  User User @relation(fields:[UserID],references:[id])
+  UserID Int
+  Book Book @relation(fields:[BookID],references:[id])
+  BookID Int
+}
+
+model Comments{
+  id Int @default(autoincrement()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Vote Vote[]
+  Books Book @relation(fields:[BookID], references: [id])
+  BookID Int
+}
+model Vote{
+  id Int @default(autoincrement()) @id
+  CommentID Int
+  Comments Comments? @relation(fields:[CommentID],references:[id])
+  Count Int @default(autoincrement())
+  UserID Int?
+  Voter User? @relation(fields:[UserID],references:[id])
+}

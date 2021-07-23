@@ -1,0 +1,34 @@
+type Query {
+  User(userID: String): User!
+  Book(bookId: String!): Book
+  AllBook: [Book]
+  info: String!
+}
+type User {
+  ID: ID
+  FirstName: String
+  LastName: String
+  UserName: String
+  FaveBook: [Favebook]
+  comments: [Comment]
+  bookAdd: [Book]
+}
+type Favebook {
+  ID: ID
+  BookName: String
+  PicUrl: String
+}
+type Comment {
+  ID: ID
+  Comment: String
+  User: User!
+  CreatedAt: String
+}
+type Book {
+  ID: ID
+  BookName: String
+  Author: String
+  PicUrl: String
+  comments: [Comment]
+  User: User
+}
