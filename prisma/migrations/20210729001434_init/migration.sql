@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Vote" ADD COLUMN     "TesterID" INTEGER;
+
+-- AddForeignKey
+ALTER TABLE "Vote" ADD FOREIGN KEY ("TesterID") REFERENCES "Test"("id") ON DELETE SET NULL ON UPDATE CASCADE;

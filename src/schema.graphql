@@ -2,13 +2,12 @@ type Query {
   User(userID: String): User!
   Book(bookId: String!): Book
   AllBook: [Book]
-  info: String!
 }
 type User {
   ID: ID
   FirstName: String
   LastName: String
-  UserName: String
+  Username: String
   FaveBook: [Favebook]
   comments: [Comment]
   bookAdd: [Book]
@@ -26,9 +25,25 @@ type Comment {
 }
 type Book {
   ID: ID
-  BookName: String
+  Name: String
   Author: String
   PicUrl: String
   comments: [Comment]
   User: User
+}
+type Mutation {
+  AddBook(Name: String!, Summery: String!): String
+  Login(Email: String!, Password: String!): AuthPayload
+  Signup(
+    FirstName: String!
+    LastName: String!
+    Username: String!
+    Email: String!
+    Password: String!
+  ): AuthPayload
+}
+
+type AuthPayload {
+  token: String
+  user: User
 }

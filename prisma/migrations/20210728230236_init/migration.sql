@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Test" ALTER COLUMN "Password" SET DATA TYPE TEXT;
